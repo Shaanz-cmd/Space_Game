@@ -12,13 +12,20 @@ function clearScreen() {
 let dy = 2;
 let scoreCount = 0;
 let liveCount = 3;
-
+let highScoreCount = 0;
 // Game Texts
 function score() {
   ctx.font = "bold 18px Arial";
   ctx.textAlign = "center";
   ctx.fillStyle = "whitesmoke";
   ctx.fillText(`Score: ${scoreCount}`, 50, 40);
+}
+
+function highScore() {
+  ctx.font = "bold 18px Arial";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "whitesmoke";
+  ctx.fillText(`HighScore: ${highScoreCount}`, window.innerWidth / 2, 40);
 }
 
 function lives() {
@@ -118,7 +125,6 @@ let shots = [];
 function shoot() {
   let fire = new Fire(spaceShip.x + 40, spaceShip.y - 5, 3, "orange");
   shots.push(fire);
-  console.log("Shot fired", fire); // Debugging log
 }
 
 // Asteroids array
@@ -179,11 +185,11 @@ document.addEventListener("keydown", (event) => {
 
 // Boundary Limit Function for SpaceShip
 function limit() {
-  if (spaceShip.x < -25) spaceShip.x = 0;
-  if (spaceShip.y < -25) spaceShip.y = 0;
-  if (spaceShip.x + 55 > window.innerWidth)
+  if (spaceShip.x < -35) spaceShip.x = 0;
+  if (spaceShip.y < -35) spaceShip.y = 0;
+  if (spaceShip.x + 40 > window.innerWidth)
     spaceShip.x = window.innerWidth - 80;
-  if (spaceShip.y + 55 > window.innerHeight)
+  if (spaceShip.y + 100 > window.innerHeight)
     spaceShip.y = window.innerHeight - 80;
 }
 
@@ -211,6 +217,7 @@ function render() {
 
   collisionDetection();
   score();
+  highScore();
   lives();
 
   if (liveCount > 0) {
@@ -218,9 +225,12 @@ function render() {
   } else {
     gameOver();
   }
+  // if (gameOver && scoreCount > highScoreCount) {
+  //   highScoreCount = scoreCount;
+  // }
 }
 
 // Create new asteroids at intervals
-setInterval(createAsteroid, 2000); // Create a new asteroid every 2 seconds
+setInterval(createAsteroid, 1500); // Create a new asteroid every 1.5 seconds
 
 render();
