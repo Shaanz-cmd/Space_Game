@@ -184,12 +184,15 @@ document.addEventListener("keydown", (event) => {
 });
 
 // Boundary Limit Function for SpaceShip
+
 function limit() {
   if (spaceShip.x < -35) spaceShip.x = 0;
   if (spaceShip.y < -35) spaceShip.y = 0;
   if (spaceShip.x + 40 > window.innerWidth)
     spaceShip.x = window.innerWidth - 80;
   if (spaceShip.y + 100 > window.innerHeight)
+    spaceShip.y = window.innerHeight - 80;
+  if (spaceShip.y + 100 < window.innerHeight + 140)
     spaceShip.y = window.innerHeight - 80;
 }
 
